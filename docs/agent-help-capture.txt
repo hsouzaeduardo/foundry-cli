@@ -1,0 +1,216 @@
+################ claude --help ################
+Usage: claude [options] [command] [prompt]
+
+Claude Code - starts an interactive session by default, use -p/--print for
+non-interactive output
+
+Arguments:
+  prompt                                Your prompt
+
+Options:
+  --add-dir <directories...>            Additional directories to allow tool
+                                        access to
+  --agent <agent>                       Agent for the current session. Overrides
+                                        the 'agent' setting.
+  --agents <json>                       JSON object defining custom agents (e.g.
+                                        '{"reviewer": {"description": "Reviews
+                                        code", "prompt": "You are a code
+                                        reviewer"}}')
+  --allow-dangerously-skip-permissions  Enable bypassing all permission checks
+                                        as an option, without it being enabled
+                                        by default. Recommended only for
+                                        sandboxes with no internet access.
+  --allowedTools, --allowed-tools <tools...>
+      Comma or space-separated list of tool names to allow (e.g. "Bash(git *)
+      Edit")
+  --append-system-prompt <prompt>       Append a system prompt to the default
+                                        system prompt
+  --autocompact <auto|tokens>           Auto-compact window size (auto, or
+                                        100k–1M tokens)
+  --ax-screen-reader                    Render screen-reader friendly output
+                                        (flat text, no decorative borders or
+                                        animations).
+  --bg, --background                    Start the session as a background agent
+                                        and return immediately (manage with
+                                        `claude agents`)
+  --bare                                Minimal mode: skip hooks, LSP, plugin
+                                        sync, attribution, auto-memory,
+                                        background prefetches, keychain reads,
+                                        and CLAUDE.md auto-discovery. Sets
+                                        CLAUDE_CODE_SIMPLE=1. Anthropic auth is
+                                        strictly ANTHROPIC_API_KEY or
+                                        apiKeyHelper via --settings (OAuth and
+                                        keychain are never read). 3P providers
+                                        (Bedrock/Vertex/Foundry) use their own
+                                        credentials. Skills still resolve via
+                                        /skill-name. Explicitly provide context
+                                        via: --system-prompt[-file],
+                                        --append-system-prompt[-file], --add-dir
+                                        (CLAUDE.md dirs), --mcp-config,
+                                        --settings, --agents, --plugin-dir.
+  --betas <betas...>                    Beta headers to include in API requests
+                                        (API key users only)
+  --brief                               Enable SendUserMessage tool for
+                                        agent-to-user communication
+  --chrome                              Enable Claude in Chrome integration
+  --cloud [description|session_id|url]  Create a cloud session with the given
+                                        description, or attach to an existing
+                                        one by session ID or claude.ai/code URL
+  -c, --continue                        Continue the most recent conversation in
+                                        the current directory
+  --dangerously-skip-permissions        Bypass all permission checks.
+                                        Recommended only for sandboxes with no
+                                        internet access.
+  -d, --debug [filter]                  Enable debug mode with optional category
+                                        filtering (e.g., "api,hooks" or
+                                        "!1p,!file")
+  --debug-file <path>                   Write debug logs to a specific file path
+                                        (implicitly enables debug mode)
+  --disable-slash-commands              Disable all skills
+  --disallowedTools, --disallowed-tools <tools...>
+      Comma or space-separated list of tool names to deny (e.g. "Bash(git *)
+
+################ codex --help ################
+Codex CLI
+
+If no subcommand is specified, options will be forwarded to the interactive CLI.
+
+Usage: codex [OPTIONS] [PROMPT]
+       codex [OPTIONS] <COMMAND> [ARGS]
+
+Commands:
+  exec        Run Codex non-interactively [aliases: e]
+  review      Run a code review non-interactively
+  login       Manage login
+  logout      Remove stored authentication credentials
+  mcp         Manage external MCP servers for Codex
+  mcp-server  Start Codex as an MCP server (stdio)
+  app-server  [experimental] Run the app server or related tooling
+  completion  Generate shell completion scripts
+  sandbox     Run commands within a Codex-provided sandbox
+  debug       Debugging tools
+  apply       Apply the latest diff produced by Codex agent as a `git apply` to your local working
+              tree [aliases: a]
+  resume      Resume a previous interactive session (picker by default; use --last to continue the
+              most recent)
+  fork        Fork a previous interactive session (picker by default; use --last to fork the most
+              recent)
+  cloud       [EXPERIMENTAL] Browse tasks from Codex Cloud and apply changes locally
+  features    Inspect feature flags
+  help        Print this message or the help of the given subcommand(s)
+
+Arguments:
+  [PROMPT]
+          Optional user prompt to start the session
+
+Options:
+  -c, --config <key=value>
+          Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+          Use a dotted path (`foo.bar.baz`) to override nested values. The `value` portion is parsed
+          as TOML. If it fails to parse as TOML, the raw string is used as a literal.
+          
+          Examples: - `-c model="o3"` - `-c 'sandbox_permissions=["disk-full-read-access"]'` - `-c
+          shell_environment_policy.inherit=all`
+
+      --enable <FEATURE>
+          Enable a feature (repeatable). Equivalent to `-c features.<name>=true`
+
+      --disable <FEATURE>
+          Disable a feature (repeatable). Equivalent to `-c features.<name>=false`
+
+      --remote <ADDR>
+          Connect the app-server-backed TUI to a remote app server websocket endpoint.
+          
+          Accepted forms: `ws://host:port` or `wss://host:port`.
+
+  -i, --image <FILE>...
+          Optional image(s) to attach to the initial prompt
+
+  -m, --model <MODEL>
+          Model the agent should use
+
+      --oss
+          Convenience flag to select the local open source model provider. Equivalent to -c
+          model_provider=oss; verifies a local LM Studio or Ollama server is running
+
+      --local-provider <OSS_PROVIDER>
+          Specify which local provider to use (lmstudio or ollama). If not specified with --oss,
+          will use config default or show selection
+
+  -p, --profile <CONFIG_PROFILE>
+          Configuration profile from config.toml to specify default options
+
+  -s, --sandbox <SANDBOX_MODE>
+
+################ copilot --help ################
+Usage: copilot [options] [command]
+
+GitHub Copilot CLI - An AI-powered coding assistant
+
+Options:
+  --add-dir <directory>               Add a directory to the allowed list for
+                                      file access (can be used multiple times)
+  --additional-mcp-config <json>      Additional MCP servers configuration as
+                                      JSON string or file path (prefix with @)
+                                      (can be used multiple times; augments
+                                      config from ~/.copilot/mcp-config.json for
+                                      this session)
+  --agent <agent>                     Specify a custom agent to use, only in
+                                      prompt mode
+  --allow-all-paths                   Disable file path verification and allow
+                                      access to any path
+  --allow-all-tools                   Allow all tools to run automatically
+                                      without confirmation; required for
+                                      non-interactive mode (env:
+                                      COPILOT_ALLOW_ALL)
+  --allow-tool [tools...]             Allow specific tools
+  --banner                            Show the startup banner
+  --continue                          Resume the most recent session
+  --deny-tool [tools...]              Deny specific tools, takes precedence over
+                                      --allow-tool or --allow-all-tools
+  --disable-builtin-mcps              Disable all built-in MCP servers
+                                      (currently: github-mcp-server)
+  --disable-mcp-server <server-name>  Disable a specific MCP server (can be used
+                                      multiple times)
+  --disable-parallel-tools-execution  Disable parallel execution of tools (LLM
+                                      can still make parallel tool calls, but
+                                      they will be executed sequentially)
+  --disallow-temp-dir                 Prevent automatic access to the system
+                                      temporary directory
+  --enable-all-github-mcp-tools       Enable all GitHub MCP server tools instead
+                                      of the default CLI subset
+  -h, --help                          display help for command
+  --log-dir <directory>               Set log file directory (default:
+                                      ~/.copilot/logs/)
+  --log-level <level>                 Set the log level (choices: "none",
+                                      "error", "warning", "info", "debug",
+                                      "all", "default")
+  --model <model>                     Set the AI model to use (choices:
+                                      "claude-sonnet-4.5", "claude-haiku-4.5",
+                                      "claude-opus-4.5", "claude-sonnet-4",
+                                      "gpt-5", "gpt-5.1", "gpt-5.1-codex-mini",
+                                      "gpt-5.1-codex", "gpt-5-mini", "gpt-4.1",
+                                      "gemini-3-pro-preview")
+  --no-color                          Disable all color output
+  --no-custom-instructions            Disable loading of custom instructions
+                                      from AGENTS.md and related files
+  -p, --prompt <text>                 Execute a prompt directly without
+                                      interactive mode
+  --resume [sessionId]                Resume from a previous session (optionally
+                                      specify session ID)
+  -s, --silent                        Output only the agent response (no stats),
+                                      useful for scripting with -p
+  --screen-reader                     Enable screen reader optimizations
+  --stream <mode>                     Enable or disable streaming mode (choices:
+                                      "on", "off")
+  -v, --version                       show version information
+
+Commands:
+  help [topic]                        Display help information
+
+Help Topics:
+  config       Configuration Settings
+  commands     Interactive Mode Commands
+  environment  Environment Variables
+  logging      Logging
+
