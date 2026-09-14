@@ -103,10 +103,8 @@ Gemini is not supported: Microsoft Foundry serves no Google models.
 
 ## Contributing
 
-Issues and pull requests are welcome. Adding support for another agent CLI means
-adding one module under `src/foundry/agents/` and one line in the registry — see
-`docs/SPEC.md` for the architecture and `docs/agent-config-reference.md` for how
-each agent is configured.
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for
+setup, testing, and how to add support for another agent CLI.
 
 ## Licence
 
